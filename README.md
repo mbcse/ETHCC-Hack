@@ -1,1 +1,1 @@
-# ETHCC-Hack
+# Event-On-Chain
