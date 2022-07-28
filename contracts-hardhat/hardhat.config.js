@@ -92,6 +92,17 @@ module.exports = {
       accounts: getPrivateKeys(),
       timeout: 50000
     },
+    cronos_testnet: {
+      url: config.NETWORKS.CRONOS_TESTNET.RPC_URL || '',
+      accounts: getPrivateKeys(),
+      timeout: 50000
+    },
+
+    gnosis_mainnet: {
+      url: config.NETWORKS.GNOSIS_MAINNET.RPC_URL || '',
+      accounts: getPrivateKeys(),
+      timeout: 500000
+    },
 
     custom: {
       url: config.NETWORKS.CUSTOM.RPC_URL || '',

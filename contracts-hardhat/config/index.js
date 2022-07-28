@@ -49,6 +49,14 @@ module.exports = {
     XDC_TESTNET: {
       RPC_URL: 'https://rpc.apothem.network',
       CHAIN_ID: 51
+    },
+    GNOSIS_MAINNET: {
+      RPC_URL: 'https://rpc.gnosischain.com/',
+      CHAIN_ID: 64
+    },
+    CRONOS_TESTNET: {
+      RPC_URL: 'https://evm-t3.cronos.org',
+      CHAIN_ID: 338
     }
 
   },

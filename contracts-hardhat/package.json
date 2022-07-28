@@ -5,7 +5,9 @@
     "size": "npx hardhat size-contracts",
     "coverage": "npx hardhat coverage",
     "compile": "npx hardhat compile",
-    "deploy": "npx hardhat run scripts/deploy_proxy.js --network xdc_testnet"
+    "deployToMatic": "npx hardhat run scripts/deploy_proxy_matic.js --network polygon_testnet",
+    "deployToCronos": "npx hardhat run scripts/deploy_proxy_cronos.js --network cronos_testnet",
+    "deployToGnosis": "npx hardhat run scripts/deploy_proxy_gnosis.js --network gnosis_mainnet"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.6",
