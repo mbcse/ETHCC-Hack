@@ -33,6 +33,22 @@ export default {
   NETWORK: {
     ETH: {
       RPC_API: process.env.RPC_API
+    },
+    POLYGON: {
+      RPC_API: process.env.MATIC_RPC_API,
+      CHAINID: 80001,
+      NETWORKID: 80001
+    },
+    CRONOS: {
+      RPC_API: 'https://evm-t3.cronos.org',
+      CHAINID: 338,
+      NETWORKID: 338
+
+    },
+    GNOSIS: {
+      RPC_API: 'https://rpc.gnosischain.com/',
+      CHAINID: 100,
+      NETWORKID: 100
     }
   },
 
@@ -55,42 +71,37 @@ export default {
 
   DB_CONSTANTS: dbConstants,
 
-  KEY_SECURE_PASSWORD: process.env.KEY_SECURE_PASSWORD || 'planetx12345',
+  KEY_SECURE_PASSWORD: process.env.KEY_SECURE_PASSWORD || '',
 
   EMAIL: {
     HOST: 'smtp.gmail.com',
-    USER: 'eventonchain@gmail.com',
-    PASS: 'nibyqovyimdmvczb'
+    USER: '',
+    PASS: ''
   },
 
   USERNAME: 'mbcse',
 
   AWS: {
-    ACCESS_KEY_ID: 'AKIAXJSA6ABAY2BGTLE4',
-    ACCESS_KEY_SECRET: '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'
+    ACCESS_KEY_ID: '',
+    ACCESS_KEY_SECRET: ''
   },
 
   OTP: {
     TIMEOUT_WINDOW: 240 // secs
   },
 
-  SESSION_SECRET: 'eventonchain-secert7675283',
+  SESSION_SECRET: '',
 
   PINATA: {
     URL: 'https://eventonchain.infura-ipfs.io/ipfs/' || 'https://gateway.pinata.cloud/ipfs/',
-    API_KEY: '62339bbfefbce43751af',
-    API_SECRET: '292825ec11d2988b8524adb1b3c739ad60bbff5382ea1114c8fb14eb4f3e4c06'
+    API_KEY: '',
+    API_SECRET: ''
   },
 
-  CONTRACTS: {
-    NFT: {
-      ADDRESS: contract.NFT_ADDRESS,
-      ABI: contract.NFT_ABI
-    }
-  },
+  CONTRACTS: contract,
 
   API_KEYS: {
-    CRYPTO_COMPARE: '7cc0e3a7a8b49ec1b60f1ef51774b15cb6a317c79f1fa9063082e40289b45c8a'
+    CRYPTO_COMPARE: process.eventNames.CRYPTO_COMPARE_KEY
   },
 
   PRIVATE_KEYS: {

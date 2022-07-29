@@ -109,7 +109,8 @@ export const ticketMintByCrypto = async (req, res) => {
       ticketPrice: eventData.eventTicketPrice,
       ticketBurnValue: eventData.eventTicketBurnValue,
       txId,
-      payId: paymentData.payId
+      payId: paymentData.payId,
+      chain: eventData.chain
     })
     responseUtils.response.successResponse(res, 'Minting Transaction Send TxId: ' + txId)
   } catch (err) {
@@ -134,13 +135,29 @@ export const getNewPaymentSession = async (req, res) => {
   try {
     const event = await Event.findById(eventId)
     const user = await User.findById(req.session.userId)
-    const usd = await (await fetch('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=XDC', {
-      headers: {
-        authorization: config.API_KEYS.CRYPTO_COMPARE
-      }
-    })).json()
-    console.log(usd)
-    const amount = usd.XDC * event.eventTicketPrice
+
+    let amount
+
+    if (event.chain === 'POLYGON') {
+      const usd = await (await fetch('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=MATIC', {
+        headers: {
+          authorization: config.API_KEYS.CRYPTO_COMPARE
+        }
+      })).json()
+
+      amount = usd.MATIC * event.eventTicketPrice
+    } else if (event.chain === 'GNOSIS') {
+      amount = event.eventTicketPrice
+    } else if (event.chain === 'CRONOS') {
+      const usd = await (await fetch('https://min-api.cryptocompare.com/data/price?fsym=USD&tsyms=CRO', {
+        headers: {
+          authorization: config.API_KEYS.CRYPTO_COMPARE
+        }
+      })).json()
+
+      amount = usd.CRO * event.eventTicketPrice
+    }
+
     const payId = (await getNewPayId(6, config.OTP.TIMEOUT_WINDOW)).token
     const newPayment = await new Payment({
       payId,
@@ -152,7 +169,7 @@ export const getNewPaymentSession = async (req, res) => {
     }).save()
     user.payments.push(newPayment._id)
     await user.save()
-    responseUtils.response.successResponse(res, 'Amount is', { payDetails: newPayment })
+    responseUtils.response.successResponse(res, 'Amount is', { payDetails: newPayment, chain: event.chain })
   } catch (err) {
     logger.error(err)
     responseUtils.response.serverErrorResponse(res, err)
@@ -173,5 +190,5 @@ export const checkInTicket = async (req, res) => {
 }
 
 export const consumeMintTicketByCryptoQueue = async (data) => {
-  await mintTicketByCrypto(data.receiverName, data.receiver, data.passId, data.IPFSHash, data.ticketPrice, data.ticketBurnValue, data.txId, data.payId)
+  await mintTicketByCrypto(data.receiverName, data.receiver, data.passId, data.IPFSHash, data.ticketPrice, data.ticketBurnValue, data.txId, data.payId, data.chain)
 }

@@ -56,7 +56,13 @@ const eventSchema = new Schema({
   ticketsMinted: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'tickets'
-  }]
+  }],
+
+  chain: {
+    type: String,
+    enum: ['GNOSIS', 'POLYGON', 'CRONOS'],
+    default: 'POLYGON'
+  }
 }, {
   timestamps: {
     createdAt: 'created_at',

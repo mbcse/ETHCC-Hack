@@ -65,6 +65,7 @@
                                             <th>Event Name</th>
                                             <th>Payment Type</th>
                                             <th>Transaction Type</th>
+                                            <th>Chain</th>
                                             <th>status</th>
                                             <th>Reason</th> 
 
@@ -84,6 +85,7 @@
                                             <th>Event Name</th>
                                             <th>Payment Type</th>
                                             <th>Transaction Type</th>
+                                            <th>Chain</th>
                                             <th>status</th>
                                             <th>Reason</th>                                  
                                       
@@ -94,13 +96,20 @@
                                         <tr>
                                             <td><%-i+1%></td>
                                             <td><%-transaction._id%></td>
-                                            <td><a href="https://explorer.apothem.network/txs/<%-transaction.txHash%>"><%- transaction.txHash && transaction.txHash.toString().substring(0,10)%></a></td>
+                                            <%if(transaction.eventId.chain=="POLYGON"){%>
+                                                <td><a href="https://mumbai.polygonscan.com/tx/<%-transaction.txHash%>"><%- transaction.txHash && transaction.txHash.toString().substring(0,10)%></a></td>
+                                            <%}else if(transaction.eventId.chain=="CRONOS"){%>
+                                                <td><a href="https://cronos.org/explorer/testnet3/tx/<%-transaction.txHash%>"><%- transaction.txHash && transaction.txHash.toString().substring(0,10)%></a></td>                                                    
+                                            <%}else if(transaction.eventId.chain=="GNOSIS"){%>
+                                                <td><a href="https://blockscout.com/xdai/mainnet/tx/<%-transaction.txHash%>"><%- transaction.txHash && transaction.txHash.toString().substring(0,10)%></a></td>                                                    
+                                            <%}%>
                                             <td><%-transaction.ticketId%></td>
                                             <td><%-transaction.created_at%></td>
                                             <td><%- transaction.address.toString().substring(0,5)%>...<%- transaction.address.toString().substring(transaction.address.toString().length-6)%></td>
                                             <td><%-transaction.eventId.eventName%></td>
                                             <td><%-transaction.paymentType%></td>
                                             <td><%-transaction.type%></td>
+                                            <td><%-transaction.eventId.chain%></td>
                                             <td><%-transaction.status%></td>
                                             <td><%-transaction.reason%></td>
                                         </tr>

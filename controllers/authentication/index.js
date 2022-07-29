@@ -23,7 +23,24 @@ export const getAccountNounce = async (req, res) => {
 export const signingData = async (req, res) => {
   const email = req.body.email
   try {
-    const user = await User.findOne({ email })
+    let user = await User.findOne({ email })
+    if (!user) {
+      const newWalletData = await createWallet()
+      const wallet = await new Wallet({
+        type: config.DB_CONSTANTS.USER.WALLET_TYPE.PLATFORM_MANAGED,
+        address: newWalletData.address,
+        publicKey: newWalletData.publicKey,
+        encryptedWalletJson: newWalletData.encryptedWalletJson,
+        networkType: config.DB_CONSTANTS.NETWORK_TYPES.ETHEREUM
+      }).save()
+
+      const newUser = await new User({
+        email,
+        defaultWallet: wallet._id
+      }).save()
+
+      user = newUser
+    }
     const signingData = await getSigningData('EventOnChain Login')
     user.nounce = signingData.nonce
     await user.save()

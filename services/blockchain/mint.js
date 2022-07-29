@@ -1,4 +1,4 @@
-import { web3, createTx } from '../../utilities/web3Utils'
+import { web3, createTx, setProvider } from '../../utilities/web3Utils'
 import config from '../../config'
 import logger from '../../utilities/logger.js'
 import Transaction from '../../database/transaction.js'
@@ -6,9 +6,10 @@ import Ticket from '../../database/tickets.js'
 import User from '../../database/user.js'
 import Event from '../../database/events.js'
 
-export const mintTicketByCrypto = async (receiverName, receiver, passId, IPFSHash, ticketPrice, ticketBurnValue, txId, payId) => {
+export const mintTicketByCrypto = async (receiverName, receiver, passId, IPFSHash, ticketPrice, ticketBurnValue, txId, payId, chain) => {
   // const creatorAddress = (await getAdminWallet()).address;
-  const eventOnChainContract = new web3.eth.Contract(config.CONTRACTS.NFT.ABI, config.CONTRACTS.NFT.ADDRESS)
+  await setProvider(chain)
+  const eventOnChainContract = new web3.eth.Contract(config.CONTRACTS[`NFT_${chain}_ABI`], config.CONTRACTS[`NFT_${chain}_ADDRESS`])
   const txObject = {}
   txObject.data = eventOnChainContract.methods
     .mintTicketByCrypto(
@@ -21,15 +22,15 @@ export const mintTicketByCrypto = async (receiverName, receiver, passId, IPFSHas
       payId
     )
     .encodeABI()
-
   txObject.gasLimit = web3.utils.toHex(700000)
-
+  console.log('hello')
   txObject.to = eventOnChainContract.options.address
 
   txObject.value = '0x'
 
-  const txSerialized = await createTx(txObject)
+  const txSerialized = await createTx(txObject, chain)
   const tx = await Transaction.findById(txId)
+  console.log('hello')
 
   web3.eth
     .sendSignedTransaction(txSerialized)

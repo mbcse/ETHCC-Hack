@@ -14,12 +14,12 @@ async function main () {
   const rootAdmin = accounts[0].address
 
   const nftABI = (await artifacts.readArtifact('EVENT_ON_CHAIN_NFT')).abi
-  await saveToConfig('NFT_MATIC', 'ABI', nftABI)
+  await saveToConfig('NFT_POLYGON', 'ABI', nftABI)
 
   const nftContract = await upgrades.deployProxy(NFT_CONTRACT, [name, symbol, baseURI, rootAdmin], { initializer: 'initialize' })
   await nftContract.deployed()
 
-  await saveToConfig('NFT_MATIC', 'ADDRESS', nftContract.address)
+  await saveToConfig('NFT_POLYGON', 'ADDRESS', nftContract.address)
   console.log('NFT contract deployed to:', nftContract.address)
 }
 

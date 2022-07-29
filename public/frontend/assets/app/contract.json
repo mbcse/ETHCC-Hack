@@ -2234,7 +2234,7 @@
             "type": "function"
         }
     ],
-    "NFT_GNOSIS_ADDRESS": "0x8F4a3263619a0Ab01c24799e1beEBe1851FF9209",
+    "NFT_GNOSIS_ADDRESS": "0x7c546effad6ec8ff6d7c2c4b78bd9b89de3a4d6e",
     "NFT_POLYGON_ABI": [
         {
             "anonymous": false,

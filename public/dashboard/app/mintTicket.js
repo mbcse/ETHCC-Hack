@@ -14,9 +14,15 @@ async function mintTicket (e) {
   const res = await axios.get('/user/event/newpayment/' + eventId, {}, requestOptions)
   console.log(res)
   const payDetails = res.data.data.payDetails
+  const amount = payDetails.amount + 0.000000006
+  console.log(amount)
   // const pay = await web3.eth.sendTransaction({ from: accountConnected, to: '0x8F52Ef5933925aa2e536c7c882A643ba4C0797b8', value: web3.utils.toWei('0.000001', 'ether') })
-  const value = web3.utils.toWei(payDetails.amount.toString(), 'ether')
+  const value = web3.utils.toWei(amount.toFixed(18), 'ether')
   console.log(value)
+  const chain = res.data.data.chain
+  if (chain === 'POLYGON') await setPolygonChain()
+  else if (chain === 'CRONOS') await setCronosChain()
+  else if (chain === 'GNOSIS') await setGnosisChain()
   await eventonchainContract.methods.payForTicket(payDetails.payId, value).send({ from: payDetails.address, value })
   requestOptions = {
     method: 'POST',

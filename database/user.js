@@ -7,7 +7,8 @@ const Schema = mongoose.Schema
 const userSchema = new Schema({
   name: {
     type: String,
-    trim: true
+    trim: true,
+    default: 'anonymous'
   },
 
   email: {

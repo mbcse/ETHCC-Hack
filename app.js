@@ -18,7 +18,7 @@ import rateLimiter from './middleware/rateLimiter.js'
 import { consumeQueue } from './utilities/queueUtils'
 import { consumeMintTicketByCryptoQueue } from './controllers/user'
 import './database'
-
+import { web3 } from './utilities/web3Utils'
 const app = express()
 
 const __filename = fileURLToPath(import.meta.url)
@@ -57,7 +57,7 @@ app.use(helmet({
     }
   }
 })) */
-
+console.log(config.CONTRACTS[`NFT_${'CRONOS'}_ABI`])
 try {
   consumeQueue(config.QUEUE.LIST.mint, consumeMintTicketByCryptoQueue)
 } catch (err) {

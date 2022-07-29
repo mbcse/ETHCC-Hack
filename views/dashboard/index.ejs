@@ -151,6 +151,8 @@
                                         <span class="btn btn-outline-primary">Total:<%-event.stock%></span>
                                         </div>
                                         <button class="btn btn-dark mb-2 mint-event-button" value="<%-event._id%>"><span value="<%-event._id%>">Mint Ticket</span></button>
+                                        <p class="text-center">Minting on <%-event.chain%> Blockchain</p>
+
                                         <!-- <button class="btn info"><span>Delete</span></button>
                                         <button class="btn info"><span>Edit</span></button> -->
 
@@ -185,11 +187,14 @@
             <script src="/dashboard/js/demo/chart-pie-demo.js"></script>
 
             <script src="/frontend/assets/app/walletLogin.js"></script>
+            <script src="/frontend/assets/app/setContract.js"></script>
+            <script src="/frontend/assets/app/setChain.js"></script>
+
             <script src="/dashboard/app/mintTicket.js"></script>
 
             <script>$( document ).ready(async function() {
                  await connectWallet()
-                 await contractInit()
+
             });</script>
             
     </body>

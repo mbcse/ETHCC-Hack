@@ -92,6 +92,25 @@
                         <div class="form-group">
                             <input type="number" class="form-control form-control-user" id="stock" name="stock" placeholder="Total Tickets Available For Minting" required>
                         </div>
+
+                        <div class="form-group">
+                            <h5>Blockchain for Ticket Minting</h5>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                  <input type="radio" class="form-check-input" name="chain" value="POLYGON">Polygon
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <label class="form-check-label">
+                                  <input type="radio" class="form-check-input" name="chain" value="GNOSIS">Gnosis
+                                </label>
+                              </div>
+                              <div class="form-check disabled">
+                                <label class="form-check-label">
+                                  <input type="radio" class="form-check-input" name="chain" value="CRONOS">Cronos
+                                </label>
+                              </div>         
+                        </div>
                         
                         <button type="button" id="add-event-button" class="btn btn-primary btn-user">
                            Submit
